@@ -1,0 +1,37 @@
+*{
+    margin: 0%;
+    background-size: 100%;
+    color: rgb(25, 86, 216);
+}
+.vc{
+    display: none;
+}
+.vd{
+position: fixed;
+height: max-content;
+width: 100%;
+z-index: -10;
+}
+h1{
+    font-size: 40px;
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+ul{
+font-size: 20px;
+}
+@media only screen and (max-width: 800px){
+    .vd{
+        display: none;
+        position:fixed;
+    }
+   .vc{
+       margin:0%;
+display: flex;
+position: fixed;
+height: 100%;
+z-index: -10;
+   }
+}
