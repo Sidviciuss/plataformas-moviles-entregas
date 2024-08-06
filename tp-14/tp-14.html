@@ -1,0 +1,146 @@
+!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tablero de Puntos - DOM y JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container my-1 my-sm-2 my-md-4 my-lg-5">
+        <h1>Tablero de Puntos</h1>
+        <div class="card">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-5">
+                        <span id="puntos-local" class="display-1">0</span>
+                        <p class="m-0">Local</p>
+                    </div>
+                    <div class="col-2">
+                        <span class="display-1">:</span>
+                    </div>
+                    <div class="col-5">
+                        <span id="puntos-visitante" class="display-1">0</span>
+                        <p class="m-0">Visitante</p>
+                    </div>
+                </div>
+
+                <hr class="hr">
+
+                <h2>Actualizar Contador</h2>
+                <div class="row">
+                    <div class="col-6 col-sm-3 my-1">
+                        <button id="incrementar-local" class="btn d-block w-100 btn-primary">
+                            + Local
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-3 my-1">
+                        <button id="decrementar-local" class="btn d-block w-100 btn-primary">
+                            - Local
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-3 my-1">
+                        <button id="incrementar-visitante" class="btn d-block w-100 btn-primary">
+                            + Visitante
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-3 my-1">
+                        <button id="decrementar-visitante" class="btn d-block w-100 btn-primary">
+                            - Visitante
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-4 my-1">
+                        <button id="reiniciar" class="btn d-block w-100 btn-danger">
+                            Reiniciar
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-4 my-1">
+                        <button id="intercambiar" class="btn d-block w-100 btn-warning">
+                            Invertir Puntaje
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-4 my-1">
+                        <button id="finalizar" class="btn d-block w-100 btn-secondary">
+                            Finalizar Partido
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        let puntosLocal = 0;
+        let puntosVisitante = 0;
+        const puntosLocalDisplay = document.getElementById('puntos-local');
+        const puntosVisitanteDisplay = document.getElementById('puntos-visitante');
+        const botones = document.querySelectorAll('button');
+
+        function actualizarDisplay() {
+            puntosLocalDisplay.textContent = puntosLocal;
+            puntosVisitanteDisplay.textContent = puntosVisitante;
+        }
+
+        function incrementarPuntosLocal() {
+            puntosLocal++;
+            actualizarDisplay();
+        }
+
+        function decrementarPuntosLocal() {
+            if (puntosLocal > 0) puntosLocal--;
+            actualizarDisplay();
+        }
+
+        function incrementarPuntosVisitante() {
+            puntosVisitante++;
+            actualizarDisplay();
+        }
+
+        function decrementarPuntosVisitante() {
+            if (puntosVisitante > 0) puntosVisitante--;
+            actualizarDisplay();
+        }
+
+        function reiniciar() {
+            puntosLocal = 0;
+            puntosVisitante = 0;
+            actualizarDisplay();
+            habilitarBotones();
+        }
+
+        function intercambiarPuntaje() {
+            const temp = puntosLocal;
+            puntosLocal = puntosVisitante;
+            puntosVisitante = temp;
+            actualizarDisplay();
+        }
+
+        function finalizarPartido() {
+            deshabilitarBotones();
+        }
+
+        function deshabilitarBotones() {
+            botones.forEach(boton => {
+                if (boton.id !== 'reiniciar') {
+                    boton.disabled = true;
+                }
+            });
+        }
+
+        function habilitarBotones() {
+            botones.forEach(boton => {
+                boton.disabled = false;
+            });
+        }
+
+        document.getElementById('incrementar-local').addEventListener('click', incrementarPuntosLocal);
+        document.getElementById('decrementar-local').addEventListener('click', decrementarPuntosLocal);
+        document.getElementById('incrementar-visitante').addEventListener('click', incrementarPuntosVisitante);
+        document.getElementById('decrementar-visitante').addEventListener('click', decrementarPuntosVisitante);
+        document.getElementById('reiniciar').addEventListener('click', reiniciar);
+        document.getElementById('intercambiar').addEventListener('click', intercambiarPuntaje);
+        document.getElementById('finalizar').addEventListener('click', finalizarPartido);
+    </script>
+</body>
+</html>
